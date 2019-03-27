@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <img style="height: 100%; position: fixed" src="../../../assets/imgs/fondo.png">
+    <br>
+    <ion-grid center text-center>
+        <ion-row center>
+            <ion-col>
+                <img  height="180px" src="../../../assets/imgs/logo.png">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <form #loginForm=ngForm (ngSubmit)="onSubmit()">
+        <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input type="email" name="email" (focus)="network.isOnline()" required [(ngModel)]="form.email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Contraseña</ion-label>
+            <ion-input type="password" name="password" required [(ngModel)]="form.password"></ion-input>
+        </ion-item>
+        <ion-grid center text-center>
+            <ion-row center>
+                <ion-col>
+                    <ion-button style="height: 40px; width: 90px;" color="dark"
+                            [disabled]="!loginForm.valid">Entrar
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+    <br><br>
+    <ion-grid center text-center>
+        <ion-row center>
+            <ion-col>
+                <label><b>No Tienes Cuenta? </b></label>
+                <ion-button style="margin-bottom: 12px;" href="/menu/signup">Registrate!</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
