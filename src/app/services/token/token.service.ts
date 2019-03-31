@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClientModule } from '@angular/common/http';
 import {LoginPage} from '../../pages/login/login.page';
-import {AppPage} from '../../../../e2e/src/app.po';
-import {browser} from 'protractor';
 
 @Injectable({
     providedIn: 'root'
@@ -11,16 +9,12 @@ export class TokenService {
 
     public cont;
 
-
     private iss = {
         login: 'http://172.104.211.233/ettcurumaniServe/public/api/login',
         signup: 'http://172.104.211.233/ettcurumaniServe/public/api/signup'
     };
 
-    constructor(public http: HttpClient, public nav: AppPage
-    ) {
-
-    }
+    constructor() {}
 
     handle($token, $data) {
         this.set($token, $data);
@@ -65,7 +59,7 @@ export class TokenService {
     }
 
     locationTo($page) {
-        return browser.get('/');
+        return '/';
     }
 
     isValid() {

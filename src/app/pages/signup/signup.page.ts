@@ -86,4 +86,18 @@ export class SignupPage implements OnInit {
 
         await alert.present();
     }
+
+    onValidatePass() {
+        const $pass = this.form.password;
+        const $pass2 = this.form.password_confirmation;
+        if ($pass != null && $pass2 != null) {
+            if (!$pass.isEmpty && !$pass2.isEmpty) {
+                if ($pass !== $pass2 || $pass2 !== $pass) {
+                    Swal.fire('Contraseña Incorrecta', 'Las contraseñas no coinciden', 'warning');
+                    this.form.password = null;
+                    this.form.password_confirmation = null;
+                }
+            }
+        }
+    }
 }
