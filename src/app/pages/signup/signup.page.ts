@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {LoadingController} from '@ionic/angular';
+import {LoadingController, NavController} from '@ionic/angular';
 import {ClienteService} from '../../services/client/cliente.service';
 import {AlertService} from '../../services/alert/alert.service';
 import Swal from 'sweetalert2';
@@ -15,9 +15,9 @@ export class SignupPage implements OnInit {
 
     public form = {
         name: null,
+        lastName: null,
         email: null,
-        telefono: null,
-        direccion: null,
+        phone: null,
         password: null,
         password_confirmation: null,
     };
@@ -28,6 +28,7 @@ export class SignupPage implements OnInit {
     constructor(private loadingCtrl: LoadingController,
                 private Jarwis: ClienteService,
                 public alert: AlertService,
+                private nav: NavController,
                 private Token: TokenService) {
     }
 
@@ -45,10 +46,10 @@ export class SignupPage implements OnInit {
     }
 
     handleResponse($data) {
-        const bool = this.Token.handle($data.access_token, $data);
+        const bool = this.Token.handle($data.token, $data);
         if (bool) {
-            this.alert.showMsg('Registrado Correctamente', 'Gracias Por Registrarse Señor(a) ' + $data.user);
-            location.reload();
+            this.alert.showMsg('Registrado Correctamente', 'Gracias Por Registrarse Señor(a) ' + localStorage.getItem('name'));
+            this.go('menu/prueba');
         }
     }
 
@@ -99,5 +100,9 @@ export class SignupPage implements OnInit {
                 }
             }
         }
+    }
+
+    go($url) {
+        return this.nav.navigateRoot($url);
     }
 }

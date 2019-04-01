@@ -14,11 +14,12 @@ const routes: Routes = [
         children: [
             {path: 'login', loadChildren: '../login/login.module#LoginPageModule'},
             {path: 'signup', loadChildren: '../signup/signup.module#SignupPageModule'},
+            {path: 'prueba', loadChildren: '../prueba/prueba.module#PruebaPageModule'},
         ]
     },
     {
         path: '',
-        redirectTo: '/menu/login'
+        redirectTo: MenuPage.prototype.isLogged() ? '/menu/prueba' : '/menu/login'
     }
 ];
 

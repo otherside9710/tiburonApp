@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClientModule } from '@angular/common/http';
 import {LoginPage} from '../../pages/login/login.page';
+import {jwt} from 'jsonwebtoken';
 
 @Injectable({
     providedIn: 'root'
@@ -9,12 +9,8 @@ export class TokenService {
 
     public cont;
 
-    private iss = {
-        login: 'http://172.104.211.233/ettcurumaniServe/public/api/login',
-        signup: 'http://172.104.211.233/ettcurumaniServe/public/api/signup'
-    };
-
-    constructor() {}
+    constructor() {
+    }
 
     handle($token, $data) {
         this.set($token, $data);
@@ -22,15 +18,15 @@ export class TokenService {
         return this.isValid();
     }
 
+
     set($token, $data) {
         localStorage.setItem('token', $token);
-        localStorage.setItem('idUser', $data.userData.id);
-        localStorage.setItem('name', $data.userData.name);
+        localStorage.setItem('idUser', $data.userData._id);
+        localStorage.setItem('name', $data.userData.name + ' ' + $data.userData.lastName);
         localStorage.setItem('email', $data.userData.email);
         localStorage.setItem('password', $data.userData.password);
-        localStorage.setItem('telefono', $data.userData.telefono);
-        localStorage.setItem('direccion', $data.userData.direccion);
-        localStorage.setItem('placa', $data.userData.placa);
+        localStorage.setItem('telefono', $data.userData.phone);
+        localStorage.setItem('status', $data.userData.status);
     }
 
     get() {
@@ -44,8 +40,7 @@ export class TokenService {
             email: localStorage.getItem('email'),
             password: localStorage.getItem('password'),
             telefono: localStorage.getItem('telefono'),
-            direccion: localStorage.getItem('direccion'),
-            placa: localStorage.getItem('placa')
+            status: localStorage.getItem('status')
         };
         return $array;
     }
@@ -67,7 +62,7 @@ export class TokenService {
         if (token) {
             const payload = this.payload(token);
             if (payload) {
-                return this.objectKeys(this.iss).indexOf(payload.iss) > -1 ? true : false;
+                return true;
             }
         }
         return false;
@@ -80,12 +75,6 @@ export class TokenService {
 
     decode($payload) {
         return JSON.parse(atob($payload));
-    }
-
-    objectKeys($keys) {
-        const values = Object.keys($keys).map(key => $keys[key]);
-        const union = values.join(',');
-        return union;
     }
 
     isLogged() {

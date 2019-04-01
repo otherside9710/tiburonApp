@@ -1,50 +1,54 @@
 <ion-header>
-  <ion-toolbar color="danger">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Registro</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid center text-center>
-    <ion-row center>
-      <ion-col>
-        <img src="assets/imgs/logo.png" width="130px;"/>
-        <br>
-        <label><b>Crea tu cuenta y empieza a disfrutar de nuestra App</b></label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <form #signupForm=ngForm (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-input type="text" name="nombres" required [(ngModel)]="form.name" placeholder="Nombre Completo"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="email" name="email" required [(ngModel)]="form.email" placeholder="Email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" name="telefono" required [(ngModel)]="form.telefono" placeholder="Telefono"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" name="direccion" required [(ngModel)]="form.direccion" placeholder="Dirección"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" (ionBlur)="onValidatePass()" name="password" required [(ngModel)]="form.password" placeholder="Contraseña"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" (ionBlur)="onValidatePass()" name="password_confirmation" required [(ngModel)]="form.password_confirmation" placeholder="Confirmar Contraseña"></ion-input>
-    </ion-item>
     <ion-grid center text-center>
-      <ion-row center>
-        <ion-col>
-          <ion-button  color="dark"
-                  [disabled]="!signupForm.valid">Registrarme
-          </ion-button>
-        </ion-col>
-      </ion-row>
+        <ion-row center>
+            <ion-col>
+                <img src="assets/imgs/logo.png" width="130px;"/>
+                <br>
+                <label><b>Crea tu cuenta y empieza a disfrutar de nuestra App</b></label>
+            </ion-col>
+        </ion-row>
     </ion-grid>
-    <br>
-  </form>
+    <form #signupForm=ngForm>
+        <ion-item>
+            <ion-input type="text" name="nombre" required [(ngModel)]="form.name" placeholder="Nombres"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" name="lastName" required [(ngModel)]="form.lastName"
+                       placeholder="Apellidos"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="email" name="email" required [(ngModel)]="form.email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" name="telefono" required [(ngModel)]="form.phone" placeholder="Telefono"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="password" (ionBlur)="onValidatePass()" name="password" required [(ngModel)]="form.password"
+                       placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="password" (ionBlur)="onValidatePass()" name="password_confirmation" required
+                       [(ngModel)]="form.password_confirmation" placeholder="Confirmar Contraseña"></ion-input>
+        </ion-item>
+        <ion-grid center text-center>
+            <ion-row center>
+                <ion-col>
+                    <ion-button color="dark"
+                                (click)="onSubmit()"
+                                [disabled]="!signupForm.valid">Registrarme
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <br>
+    </form>
 </ion-content>

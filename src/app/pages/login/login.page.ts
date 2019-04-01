@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {LoadingController} from '@ionic/angular';
+import {LoadingController, NavController} from '@ionic/angular';
+import {ClienteService} from '../../services/client/cliente.service';
+import {TokenService} from '../../services/token/token.service';
 
 @Component({
     selector: 'app-login',
@@ -15,8 +17,33 @@ export class LoginPage implements OnInit {
     };
 
     constructor(private router: Router,
-                private loadingCtrl: LoadingController
+                private loadingCtrl: LoadingController,
+                private client: ClienteService,
+                private Token: TokenService,
+                private nav: NavController,
     ) {
+    }
+
+    onSubmit() {
+        this.client.login(this.form).subscribe(
+            data => this.handleResponse(data),
+            error => this.alert(error.error)
+        );
+    }
+
+    handleResponse($data) {
+        const bool = this.Token.handle($data.token, $data);
+        if (bool) {
+            this.alert(`Bienvenido!! ${localStorage.getItem('name')}`);
+            this.go('menu/prueba');
+        } else {
+            this.alert('error!');
+            localStorage.clear();
+        }
+    }
+
+    go($url) {
+       return this.nav.navigateRoot($url);
     }
 
     ngOnInit() {
@@ -24,14 +51,24 @@ export class LoginPage implements OnInit {
     }
 
     toSignup() {
-        this.router.navigateByUrl('menu/login');
+        this.go('menu/signup');
     }
 
     async presentAlert() {
         const alert = await this.loadingCtrl.create({
-            duration: 900,
+            duration: 700,
             animated: true,
             message: 'Cargando..'
+        });
+
+        await alert.present();
+    }
+
+    async alert($msg) {
+        const alert = await this.loadingCtrl.create({
+            duration: 1100,
+            animated: true,
+            message: $msg
         });
 
         await alert.present();

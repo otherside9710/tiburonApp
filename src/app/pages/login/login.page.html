@@ -16,19 +16,20 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <form #loginForm=ngForm (ngSubmit)="onSubmit()">
+    <form #loginForm=ngForm>
         <ion-item>
             <ion-label>Email</ion-label>
-            <ion-input type="email" name="email" (focus)="network.isOnline()" required [(ngModel)]="form.email"></ion-input>
+            <ion-input type="email" name="email" value="test@test.com" required [(ngModel)]="form.email"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>Contraseña</ion-label>
-            <ion-input type="password" name="password" required [(ngModel)]="form.password"></ion-input>
+            <ion-input type="password" name="password" value="M@st3r321." required [(ngModel)]="form.password"></ion-input>
         </ion-item>
         <ion-grid center text-center>
             <ion-row center>
                 <ion-col>
                     <ion-button style="height: 40px; width: 90px;" color="dark"
+                                (click)="onSubmit()"
                             [disabled]="!loginForm.valid">Entrar
                     </ion-button>
                 </ion-col>
@@ -40,7 +41,7 @@
         <ion-row center>
             <ion-col>
                 <label><b>No Tienes Cuenta? </b></label>
-                <ion-button style="margin-bottom: 12px;" href="/menu/signup">Registrate!</ion-button>
+                <ion-button style="margin-bottom: 12px;" (click)="toSignup()">Registrate!</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
