@@ -1,5 +1,7 @@
 {
   "name": "tiburonApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

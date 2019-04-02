@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PruebaPage implements OnInit {
 
+  slideOpts = {
+    effect: 'flip'
+  };
   constructor() { }
 
   ngOnInit() {
